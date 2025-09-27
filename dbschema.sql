@@ -25,21 +25,21 @@ CREATE TABLE users (
 
 CREATE TABLE theaters (
     theater_id INT AUTO_INCREMENT PRIMARY KEY,
-    theater_name VARCHAR(100) NOT NULL,
     theater_img VARCHAR(255) NOT NULL,
-    location VARCHAR(150) NOT NULL
+    location VARCHAR(150) NOT NULL,
+    theater_name VARCHAR(100) NOT NULL
 );
 
 
 CREATE TABLE movies (
     movie_id INT AUTO_INCREMENT PRIMARY KEY,
-    movie_img VARCHAR(255) NOT NULL,
     title VARCHAR(150) NOT NULL,
     description TEXT,
     trailer_url VARCHAR(255),
     release_date DATE,
     duration INT, -- in minutes
-    rating DECIMAL(2,1) DEFAULT 0
+    rating DECIMAL(2,1) DEFAULT 0,
+    movie_img VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE shows (
@@ -90,3 +90,59 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
 );
+
+
+
+INSERT INTO theaters (theater_name, location, theater_img)
+VALUES 
+('Cineplex Mall', 'Karachi, Pakistan', 'cineplex.jpg'),
+('Star Cinema', 'Karachi, Pakistan', 'starcinema.png');
+
+
+INSERT INTO movies (title, description, trailer_url, release_date, duration, rating, movie_img)
+VALUES
+('The Legend of Maula Jatt', 'A Pakistani action-drama film.', 'https://youtube.com/trailer1', '2022-10-13', 150, 4.5, 'maulajatt.jpg'),
+('Avengers: Endgame', 'Final battle of the Avengers against Thanos.', 'https://youtube.com/trailer2', '2019-04-26', 180, 4.8, 'endgame.png'),
+('Fast & Furious 10', 'High-speed action and family drama.', 'https://youtube.com/trailer3', '2023-05-19', 160, 4.2, 'fast10.jpg');
+
+
+
+INSERT INTO shows (movie_id, theater_id, show_date, show_time)
+VALUES
+(1, 1, '2025-09-28', '18:00:00'),
+(1, 2, '2025-09-28', '21:00:00'),
+(2, 1, '2025-09-29', '19:30:00'),
+(3, 2, '2025-09-29', '20:00:00');
+
+
+INSERT INTO seat_classes (class_name, price)
+VALUES
+('Gold', 800.00),
+('Platinum', 1200.00),
+('Box', 2000.00);
+
+
+
+-- Show Rates
+
+-- (Assign rates for each show + class;
+-- suppose show_id = 1 → Maula Jatt at Cineplex, etc.)
+
+
+INSERT INTO show_rates (show_id, class_id, price)
+VALUES
+(1, 1, 800.00),   -- Gold
+(1, 2, 1200.00),  -- Platinum
+(1, 3, 2000.00),  -- Box
+
+(2, 1, 700.00),
+(2, 2, 1100.00),
+(2, 3, 1800.00),
+
+(3, 1, 900.00),
+(3, 2, 1300.00), 
+(3, 3, 2100.00),
+
+(4, 1, 850.00),
+(4, 2, 1250.00),
+(4, 3, 1950.00);
