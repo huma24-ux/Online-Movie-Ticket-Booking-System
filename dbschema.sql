@@ -26,12 +26,14 @@ CREATE TABLE users (
 CREATE TABLE theaters (
     theater_id INT AUTO_INCREMENT PRIMARY KEY,
     theater_name VARCHAR(100) NOT NULL,
+    theater_img VARCHAR(255) NOT NULL,
     location VARCHAR(150) NOT NULL
 );
 
 
 CREATE TABLE movies (
     movie_id INT AUTO_INCREMENT PRIMARY KEY,
+    movie_img VARCHAR(255) NOT NULL,
     title VARCHAR(150) NOT NULL,
     description TEXT,
     trailer_url VARCHAR(255),
